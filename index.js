@@ -43,4 +43,3 @@ socket.on("connect", () => {
   socket.emit("type", "LITTER")
 })
 socket.on("tare", () => (tareTriggered = true))
-socket.on("dispenseWater", dispenseWater)
