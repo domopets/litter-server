@@ -1,19 +1,19 @@
-# Copy this file to /etc/systemd/system/WaterDispenserServer.service and then
-#     sudo systemctl start WaterDispenserServer.service
+# Copy this file to /etc/systemd/system/LitterServer.service and then
+#     sudo systemctl start LitterServer.service
 # and to start on boot:
-#     sudo systemctl enable WaterDispenserServer.service
-# To consult the log : sudo journalctl -u WaterDispenserServer
+#     sudo systemctl enable LitterServer.service
+# To consult the log : sudo journalctl -u LitterServer
 
 [Unit]
-Description=Launch the water dispenser server
+Description=Launch the litter server
 
 [Service]
-ExecStart=/home/pi/water-dispenser-server/start.sh
-WorkingDirectory=/home/pi/water-dispenser-server
+ExecStart=/home/pi/litter-server/start.sh
+WorkingDirectory=/home/pi/litter-server
 User=pi
 Group=daemon
 Nice=10
-SyslogIdentifier=WaterDispenserServer
+SyslogIdentifier=LitterServer
 StandardOutput=syslog
 Restart=on-failure
 KillSignal=SIGINT
