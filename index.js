@@ -20,6 +20,11 @@ async function measure(tare) {
 
 let tareVal
 let tareTriggered = false
+let catOnLitter = false
+let countOnLitter = 0
+let weightOnLitter = 0
+let lastVal = 0
+
 tare().then(async val => {
   tareVal = val
   const measureLoop = async () => {
@@ -29,6 +34,22 @@ tare().then(async val => {
       tareTriggered = false
     }
     const measureValue = await measure(tareVal)
+    if (Math.abs(lastVal - measureValue) > 700) {
+      catOnLitter = !catOnLitter
+      if (!catOnLitter) {
+        socket.emit("catOnLitter", weightOnLitter / countOnLitter)
+        weightOnLitter = 0
+        countOnLitter = 0
+      }
+    }
+
+    if (catOnLitter) {
+      weightOnLitter += measureValue
+      countOnLitter++
+    }
+
+    lastVal = measureValue
+
     socket.emit("dispatch", {
       action: "measure",
       payload: measureValue,
